@@ -25,7 +25,7 @@ class Snake:
         self.dead = False  # Flag indicating whether the snake is dead (hit itself or boundaries)
 
     def update(self):
-        global numbers
+        #global numbers
         for square in self.body:
             if self.head.x == square.x and self.head.y == square.y:
                 self.dead = True  # Check if snake collided with itself
@@ -39,7 +39,14 @@ class Snake:
             self.xdir = 1
             self.ydir = 0
             self.dead = False
-            numbers = [Number() for _ in range(8)]  # Generate 8 random numbers
+            #numbers = [Number() for _ in range(8)]  # Generate 8 random numbers
+            numbers = []
+
+            possible_values = list(range(1, 21))
+            for i in range(8):
+                random_number = random.choice(possible_values)
+                possible_values.remove(random_number)
+                numbers.append(Number(random_number))
 
         # Move the snake's body and head
         self.body.append(self.head)
@@ -51,8 +58,9 @@ class Snake:
 
 
 class Number:
-    def __init__(self):
-        self.value = self.generate_unique_number()
+    def __init__(self, number_value):
+        #self.value = self.generate_unique_number()
+        self.value = number_value
         self.color = self.generate_bright_color()
         self.x = int(random.randint(0, SW / BLOCK_SIZE - 1)) * BLOCK_SIZE
         self.y = int(random.randint(0, SH / BLOCK_SIZE - 1)) * BLOCK_SIZE
@@ -60,9 +68,9 @@ class Number:
 
     def generate_unique_number(self):
         possible_values = list(range(1, 21))
-        for num in snake.body:
-            if num.value in possible_values:
-                possible_values.remove(num.value)
+        # for num in snake.body:
+        #     if num.value in possible_values:
+        #         possible_values.remove(num.value)
         return random.choice(possible_values)
 
     def generate_bright_color(self):
@@ -133,7 +141,14 @@ def draw_buttons():
 def main():
     snake = Snake()
     equation = Equation()
-    numbers = [Number() for _ in range(8)]  # Generate 8 random numbers
+    #numbers = [Number() for _ in range(8)]  # Generate 8 random numbers
+    numbers = []
+
+    possible_values = list(range(1, 21))
+    for i in range(8):
+        random_number = random.choice(possible_values)
+        possible_values.remove(random_number)
+        numbers.append(Number(random_number))
 
     while True:
         for event in pygame.event.get():
@@ -180,10 +195,14 @@ def main():
                         snake.body.append(pygame.Rect(square.x, square.y, BLOCK_SIZE, BLOCK_SIZE))
                         equation = Equation()  # Generate a new equation
                     numbers.remove(num)
-                    numbers.append(Number())  # Generate a new number
+                    possible_values.append(num.value)
+                    random_number = random.choice(possible_values)
+                    possible_values.remove(random_number)
+                    numbers.append(Number(random_number))  # Generate a new number
+                    #print(f'possible values: {possible_values}')
 
             pygame.display.update()
-            clock.tick(8)
+            clock.tick(2)
 
         else:
             screen.fill("black")
