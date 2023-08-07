@@ -32,21 +32,22 @@ class Snake:
             if self.head.x not in range(0, SW) or self.head.y not in range(0, SH):
                 self.dead = True  # Check if snake hit the game boundaries
         if self.dead:
-            # Reset snake's position and attributes
-            self.x, self.y = BLOCK_SIZE, BLOCK_SIZE
-            self.head = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)
-            self.body = [pygame.Rect(self.x - BLOCK_SIZE, self.y, BLOCK_SIZE, BLOCK_SIZE)]
-            self.xdir = 1
-            self.ydir = 0
-            self.dead = False
-            #numbers = [Number() for _ in range(8)]  # Generate 8 random numbers
-            numbers = []
+            return
+            # # Reset snake's position and attributes
+            # self.x, self.y = BLOCK_SIZE, BLOCK_SIZE
+            # self.head = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)
+            # self.body = [pygame.Rect(self.x - BLOCK_SIZE, self.y, BLOCK_SIZE, BLOCK_SIZE)]
+            # self.xdir = 1
+            # self.ydir = 0
+            # self.dead = False
+            # #numbers = [Number() for _ in range(8)]  # Generate 8 random numbers
+            # numbers = []
 
-            possible_values = list(range(1, 21))
-            for i in range(8):
-                random_number = random.choice(possible_values)
-                possible_values.remove(random_number)
-                numbers.append(Number(random_number))
+            # possible_values = list(range(1, 21))
+            # for i in range(8):
+            #     random_number = random.choice(possible_values)
+            #     possible_values.remove(random_number)
+            #     numbers.append(Number(random_number))
 
         # Move the snake's body and head
         self.body.append(self.head)
@@ -56,6 +57,22 @@ class Snake:
         self.head.y += self.ydir * BLOCK_SIZE
         self.body.remove(self.head)
 
+    def reset_snake(self):
+        # Reset snake's position and attributes
+        self.x, self.y = BLOCK_SIZE, BLOCK_SIZE
+        self.head = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)
+        self.body = [pygame.Rect(self.x - BLOCK_SIZE, self.y, BLOCK_SIZE, BLOCK_SIZE)]
+        self.xdir = 1
+        self.ydir = 0
+        self.dead = False
+        #numbers = [Number() for _ in range(8)]  # Generate 8 random numbers
+        numbers = []
+
+        possible_values = list(range(1, 21))
+        for i in range(8):
+            random_number = random.choice(possible_values)
+            possible_values.remove(random_number)
+            numbers.append(Number(random_number))
 
 class Number:
     def __init__(self, number_value):
@@ -105,6 +122,18 @@ class Equation:
         screen.blit(equation_text, equation_rect.topleft)
 
 
+class Score:
+    def __init__(self):
+        self.value = 0
+    
+    def increase(self):
+        self.value += 1
+
+    def display(self):
+        score_text = FONT.render(f"Score: {self.value}", True, "grey")
+        score_rect = score_text.get_rect(center=(SW / 1.25, SH / 20))
+        screen.blit(score_text, score_rect)
+
 class Button:
     def __init__(self, x, y, width, height, text, callback):
         self.rect = pygame.Rect(x, y, width, height)
@@ -141,6 +170,7 @@ def draw_buttons():
 def main():
     snake = Snake()
     equation = Equation()
+    score = Score()
     #numbers = [Number() for _ in range(8)]  # Generate 8 random numbers
     numbers = []
 
@@ -178,9 +208,13 @@ def main():
 
         if game_started:
             snake.update()
+            if snake.dead:
+                snake.reset_snake()
+                score = Score()
             screen.fill("black")
             drawGrid()
             equation.display()
+            score.display()
 
             for num in numbers:
                 num.update()
@@ -194,6 +228,7 @@ def main():
                     if str(num.value) == str(equation.result):
                         snake.body.append(pygame.Rect(square.x, square.y, BLOCK_SIZE, BLOCK_SIZE))
                         equation = Equation()  # Generate a new equation
+                        score.increase()
                     numbers.remove(num)
                     possible_values.append(num.value)
                     random_number = random.choice(possible_values)
@@ -219,8 +254,8 @@ def drawGrid():
 
 
 if __name__ == "__main__":
-    score = FONT.render("1", True, "white")
-    score_rect = score.get_rect(center=(SW / 2, SH / 20))
+    # score = FONT.render("1", True, "white")
+    # score_rect = score.get_rect(center=(SW / 20, SH / 20))
 
     drawGrid()
     main()  # Start the main game loop
