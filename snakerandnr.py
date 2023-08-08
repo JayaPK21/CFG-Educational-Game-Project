@@ -137,6 +137,24 @@ def draw_buttons():
         button.draw(screen)
 
 
+# Gets a new number in an unoccupied position
+def get_new_number(num, numbers):
+    new_num = Number(num)
+    while is_position_occupied(new_num, numbers):
+        new_num = Number(num)
+
+    return new_num
+
+
+# Function to check if a number is already occupied in the position
+def is_position_occupied(new_number, numbers):
+    for num_class in numbers:
+        if new_number.rect.x == num_class.rect.x and new_number.rect.y == num_class.rect.y:
+            # print(f'Inside function')
+            return True
+    return False
+
+
 def set_numbers(equation):
     numbers = []        
 
@@ -144,15 +162,18 @@ def set_numbers(equation):
     numbers.append(Number(equation_answer))     # Adds the answer to the list of numbers to be displayed
 
     possible_values = list(range(0, 21))
-    print(f'possible values: {possible_values}')
-    print(f'equation Answer {equation_answer}')
+    # print(f'possible values: {possible_values}')
+    # print(f'equation Answer {equation_answer}')
     possible_values.remove(int(equation_answer))     # Removes the answer from the possible values
 
     # Generates 7 random numbers from the possible values.
     for i in range(7):
         random_number = random.choice(possible_values)
         possible_values.remove(random_number)
-        numbers.append(Number(random_number))
+        # new_num = Number(random_number)
+        # while is_position_occupied(new_num, numbers):
+        #     new_num = Number(random_number)
+        numbers.append(get_new_number(random_number, numbers))
     
     return numbers, possible_values
 
@@ -221,7 +242,8 @@ def main():
                         possible_values.append(num.value)
                         random_number = random.choice(possible_values)
                         possible_values.remove(random_number)
-                        numbers.append(Number(random_number))  # Generate a new number
+                        #numbers.append(Number(random_number))  # Generate a new number
+                        numbers.append(get_new_number(random_number, numbers))  # Generate a new number
 
             pygame.display.update()
             clock.tick(4)
