@@ -1,4 +1,4 @@
-from constants import SW, SH
+from utils.constants import SW, SH
 
 class Score:
     def __init__(self):

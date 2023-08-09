@@ -2,7 +2,7 @@ import pygame
 import sys
 import random
 
-from constants import BLOCK_SIZE, SW, SH
+from utils.constants import BLOCK_SIZE, SW, SH
 
 from classes.snake import Snake
 from classes.number import Number

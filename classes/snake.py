@@ -1,5 +1,5 @@
 import pygame
-from constants import BLOCK_SIZE, SW, SH
+from utils.constants import BLOCK_SIZE, SW, SH
 
 class Snake:
     def __init__(self):

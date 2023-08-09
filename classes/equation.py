@@ -1,5 +1,5 @@
 import random
-from constants import SW, SH
+from utils.constants import SW, SH
 
 class Equation:
     def __init__(self):

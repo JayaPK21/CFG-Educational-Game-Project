@@ -1,6 +1,6 @@
 import pygame
 import random
-from constants import BLOCK_SIZE, SW, SH
+from utils.constants import BLOCK_SIZE, SW, SH
 
 class Number:
     def __init__(self, number_value):
