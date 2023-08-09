@@ -1,0 +1,77 @@
+import pygame
+import sys
+import random
+
+from utils.constants import BLOCK_SIZE, SW, SH
+
+from classes.snake import Snake
+from classes.number import Number
+from classes.equation import Equation
+from classes.score import Score
+from classes.button import Button
+
+from games.number_game import run_number_game
+from games.word_game import run_word_game
+
+pygame.init()
+
+FONT = pygame.font.Font(None, BLOCK_SIZE)  # Font for displaying numbers
+
+screen = pygame.display.set_mode((800, 800))  # Create the game window
+pygame.display.set_caption("Snake!")  # Set window title
+clock = pygame.time.Clock()  # Create a clock object to control frame rate
+
+start_button = Button(SW / 6, SH / 4, SW / 3, SH / 8, "Start", lambda: start_word_game())
+start_number_button = Button(SW / 1.75, SH / 4, SW / 3, SH / 8, "Number Game", lambda: start_number_game())
+quit_button = Button(SW / 4, SH / 4 + SH / 4, SW / 2, SH / 8, "Quit", sys.exit)
+buttons = [start_button, start_number_button, quit_button]
+# game_started = False
+
+
+def start_word_game():
+    run_word_game(screen, clock, FONT)
+
+
+def start_number_game():
+    run_number_game(screen, clock, FONT)
+
+
+def draw_buttons():
+    for button in buttons:
+        button.draw(screen)
+
+
+def main():
+
+    run = True
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+                # Loops through the buttons to check which button is being clicked and calls the corresponding call back function
+                for button in buttons:
+                    if button.is_clicked(event.pos):
+                        button.callback()
+
+        screen.fill("black")
+        draw_buttons()
+
+        pygame.display.flip()
+
+    pygame.quit()
+    sys.exit()
+
+
+def drawGrid():
+    for x in range(0, SW, BLOCK_SIZE):
+        for y in range(0, SH, BLOCK_SIZE):
+            rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
+            pygame.draw.rect(screen, "#3c3c3b", rect, 1)
+
+
+if __name__ == "__main__":
+    drawGrid()
+    main()  # Start the main game loop
