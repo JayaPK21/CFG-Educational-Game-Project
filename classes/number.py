@@ -7,7 +7,7 @@ class Number:
         self.value = number_value
         self.color = self.generate_bright_color()
         self.x = int(random.randint(0, SW / BLOCK_SIZE - 1)) * BLOCK_SIZE
-        self.y = int(random.randint(0, SH / BLOCK_SIZE - 1)) * BLOCK_SIZE
+        self.y = int(random.randint(1, SH / BLOCK_SIZE - 1)) * BLOCK_SIZE
         self.rect = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)  # Number rectangle
 
     def generate_bright_color(self):

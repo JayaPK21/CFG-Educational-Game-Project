@@ -15,7 +15,7 @@ class Snake:
         for square in self.body:
             if self.head.x == square.x and self.head.y == square.y:
                 self.dead = True  # Check if snake collided with itself
-            if self.head.x not in range(0, SW) or self.head.y not in range(0, SH):
+            if self.head.x not in range(0, SW) or self.head.y not in range(BLOCK_SIZE, SH):
                 self.dead = True  # Check if snake hit the game boundaries
         if self.dead:
             return
