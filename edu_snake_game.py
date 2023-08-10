@@ -1,13 +1,8 @@
 import pygame
 import sys
-import random
 
 from utils.constants import BLOCK_SIZE, SW, SH
 
-from classes.snake import Snake
-from classes.number import Number
-from classes.equation import Equation
-from classes.score import Score
 from classes.button import Button
 
 from games.number_game import run_number_game
