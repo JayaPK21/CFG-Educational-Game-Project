@@ -17,7 +17,7 @@ pygame.init()
 
 FONT = pygame.font.Font(None, BLOCK_SIZE)  # Font for displaying numbers
 
-screen = pygame.display.set_mode((800, 800))  # Create the game window
+screen = pygame.display.set_mode((SW, SH))  # Create the game window
 pygame.display.set_caption("Snake!")  # Set window title
 clock = pygame.time.Clock()  # Create a clock object to control frame rate
 
@@ -65,13 +65,5 @@ def main():
     sys.exit()
 
 
-def drawGrid():
-    for x in range(0, SW, BLOCK_SIZE):
-        for y in range(0, SH, BLOCK_SIZE):
-            rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
-            pygame.draw.rect(screen, "#3c3c3b", rect, 1)
-
-
 if __name__ == "__main__":
-    drawGrid()
     main()  # Start the main game loop

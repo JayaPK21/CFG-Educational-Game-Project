@@ -9,5 +9,5 @@ class Score:
 
     def display(self, screen, FONT):
         score_text = FONT.render(f"Score: {self.value}", True, "grey")
-        score_rect = score_text.get_rect(center=(SW / 1.25, SH / 20))
+        score_rect = score_text.get_rect(center=(SW / 1.25, SH / 25))
         screen.blit(score_text, score_rect)

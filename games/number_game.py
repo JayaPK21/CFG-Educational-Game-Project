@@ -9,8 +9,12 @@ from classes.equation import Equation
 from classes.score import Score
 
 def drawGrid(screen):
+    # The first row in the grid contains the score and equation
+    top_rect = pygame.Rect(0, 0, SW, BLOCK_SIZE)
+    pygame.draw.rect(screen, "#328ca8", top_rect)
+
     for x in range(0, SW, BLOCK_SIZE):
-        for y in range(0, SH, BLOCK_SIZE):
+        for y in range(BLOCK_SIZE, SH, BLOCK_SIZE):
             rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
             pygame.draw.rect(screen, "#3c3c3b", rect, 1)
 

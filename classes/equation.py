@@ -13,5 +13,5 @@ class Equation:
 
     def display(self, screen, FONT):
         equation_text = FONT.render(self.text, True, "white")
-        equation_rect = equation_text.get_rect(center=(SW / 2, SH / 20))
+        equation_rect = equation_text.get_rect(center=(SW / 2, SH / 25))
         screen.blit(equation_text, equation_rect.topleft)
