@@ -2,13 +2,13 @@ import pygame
 import random
 from utils.constants import BLOCK_SIZE, SW, SH
 
-class Number:
-    def __init__(self, number_value):
-        self.value = number_value
+class Value:
+    def __init__(self, value):
+        self.value = value
         self.color = self.generate_bright_color()
         self.x = int(random.randint(0, SW / BLOCK_SIZE - 1)) * BLOCK_SIZE
         self.y = int(random.randint(1, SH / BLOCK_SIZE - 1)) * BLOCK_SIZE
-        self.rect = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)  # Number rectangle
+        self.rect = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)  # Value rectangle
 
     def generate_bright_color(self):
         while True:
@@ -21,6 +21,16 @@ class Number:
         if sum(self.color) / 3 < 128:
             text_color = (0, 0, 0)  # Use black text on dark background
 
-        number_text = FONT.render(str(self.value), True, text_color)
-        text_rect = number_text.get_rect(center=self.rect.center)
-        screen.blit(number_text, text_rect.topleft)
+        value_text = FONT.render(self.value, True, text_color)
+        text_rect = value_text.get_rect(center=self.rect.center)
+        screen.blit(value_text, text_rect.topleft)
+
+
+class Number(Value):
+    def __init__(self, number_value):
+        super().__init__(str(number_value))
+
+
+class Letter(Value):
+    def __init__(self, letter_value):
+        super().__init__(letter_value)

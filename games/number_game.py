@@ -2,21 +2,12 @@ import pygame
 import sys
 import random
 
-from utils.constants import BLOCK_SIZE, SW, SH
+from utils.constants import BLOCK_SIZE
+from utils.function_utility import draw_grid, is_position_occupied, snake_movements
 from classes.snake import Snake
-from classes.number import Number
+from classes.value import Number
 from classes.equation import Equation
 from classes.score import Score
-
-def drawGrid(screen):
-    # The first row in the grid contains the score and equation
-    top_rect = pygame.Rect(0, 0, SW, BLOCK_SIZE)
-    pygame.draw.rect(screen, "#328ca8", top_rect)
-
-    for x in range(0, SW, BLOCK_SIZE):
-        for y in range(BLOCK_SIZE, SH, BLOCK_SIZE):
-            rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
-            pygame.draw.rect(screen, "#3c3c3b", rect, 1)
 
 
 # Gets a new number in an unoccupied position
@@ -26,15 +17,6 @@ def get_new_number(num, numbers):
         new_num = Number(num)
 
     return new_num
-
-
-# Function to check if a number is already occupied in the position
-def is_position_occupied(new_number, numbers):
-    for num_class in numbers:
-        if new_number.rect.x == num_class.rect.x and new_number.rect.y == num_class.rect.y:
-            # print(f'Inside function')
-            return True
-    return False
 
 
 def set_numbers(equation):
@@ -70,25 +52,14 @@ def run_number_game(screen, clock, FONT):
                 run = False
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    snake.ydir = 1
-                    snake.xdir = 0
-                elif event.key == pygame.K_UP:
-                    snake.ydir = -1
-                    snake.xdir = 0
-                elif event.key == pygame.K_RIGHT:
-                    snake.ydir = 0
-                    snake.xdir = 1
-                elif event.key == pygame.K_LEFT:
-                    snake.ydir = 0
-                    snake.xdir = -1
+                snake_movements(event, snake)
 
         snake.update()
         if snake.dead:
             snake.reset_snake()
             score = Score()
         screen.fill("black")
-        drawGrid(screen)
+        draw_grid(screen)
         equation.display(screen, FONT)
         score.display(screen, FONT)
 
