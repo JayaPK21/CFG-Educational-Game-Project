@@ -1,0 +1,22 @@
+import mysql.connector 
+from config import USER, PASSWORD, HOST
+# MAC users only 
+# import mysqlclient
+
+
+def _connect_to_db(db_name):
+    cnx = mysql.connector.connect(
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        auth_plugin='mysql_native_password',
+        database=db_name
+    )
+    return cnx 
+
+
+
+
+
+if __name__ == '__main__':
+    pass
