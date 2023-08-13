@@ -2,34 +2,65 @@ import pygame
 import sys
 import random
 
-from utils.constants import BLOCK_SIZE, SW, SH
+from utils.constants import BLOCK_SIZE
+from utils.function_utility import draw_grid, is_position_occupied, snake_movements
 from classes.snake import Snake
 from classes.value import Letter
+from classes.equation import Equation
 from classes.score import Score
-
-def drawGrid(screen):
-    for x in range(0, SW, BLOCK_SIZE):
-        for y in range(0, SH, BLOCK_SIZE):
-            rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
-            pygame.draw.rect(screen, "#3c3c3b", rect, 1)
 
 
 # Gets a new letter in an unoccupied position
-def get_new_letter(char, letters):
-    new_char = Letter(char)
+def get_new_letter(character, letters):
+    new_char = Letter(character)
     while is_position_occupied(new_char, letters):
-        new_char = Letter(char)
+        new_char = Letter(character)
 
     return new_char
 
 
-# Function to check if a letter is already occupied in the position
-def is_position_occupied(new_char, letters):
-    for char_class in letters:
-        if new_char.rect.x == char_class.rect.x and new_char.rect.y == char_class.rect.y:
-            return True
-    return False
+def set_letters():
+    print("Inside Set Letters")
+
 
 
 def run_word_game(screen, clock, FONT):
-    print("This is word game!")
+
+    snake = Snake()
+    equation = Equation()
+    score = Score()
+    # numbers, possible_values = set_numbers(equation)
+
+    run = True
+    while run:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+            if event.type == pygame.KEYDOWN:
+                snake_movements(event, snake)
+
+        snake.update()
+        if snake.dead:
+            snake.reset_snake()
+            score = Score()
+        screen.fill("black")
+        draw_grid(screen)
+        # equation.display(screen, FONT)
+        # score.display(screen, FONT)
+
+        # for num in numbers:
+        #     num.update(screen, FONT)
+
+        pygame.draw.rect(screen, "green", snake.head)
+        for square in snake.body:
+            pygame.draw.rect(screen, "green", square)
+
+        pygame.display.update()
+        clock.tick(4)
+
+        pygame.display.flip()
+    
+    pygame.quit()
+    sys.exit()

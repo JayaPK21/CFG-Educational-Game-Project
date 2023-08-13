@@ -16,7 +16,7 @@ screen = pygame.display.set_mode((SW, SH))  # Create the game window
 pygame.display.set_caption("Snake!")  # Set window title
 clock = pygame.time.Clock()  # Create a clock object to control frame rate
 
-start_button = Button(SW / 6, SH / 4, SW / 3, SH / 8, "Start", lambda: start_word_game())
+start_button = Button(SW / 6, SH / 4, SW / 3, SH / 8, "Word Game", lambda: start_word_game())
 start_number_button = Button(SW / 1.75, SH / 4, SW / 3, SH / 8, "Number Game", lambda: start_number_game())
 quit_button = Button(SW / 4, SH / 4 + SH / 4, SW / 2, SH / 8, "Quit", sys.exit)
 buttons = [start_button, start_number_button, quit_button]
