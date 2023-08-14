@@ -45,6 +45,7 @@ def run_number_game(screen, clock, FONT):
     numbers, possible_values = set_numbers(equation)
 
     run = True
+    paused = False
 
     lives = 6 # set number of lives
 
@@ -52,15 +53,23 @@ def run_number_game(screen, clock, FONT):
     game_over_message_timer = 2000 # sets the duration of the game over message on screen
 
     while run:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
             if event.type == pygame.KEYDOWN:
-                snake_movements(event, snake)
+                if event.key == pygame.K_SPACE:
+                    paused = not paused
+                else:
+                    snake_movements(event, snake)
+                    
+        if not paused:
+            snake.update()
+            screen.fill("black")
+            draw_grid(screen)
+            equation.display(screen, FONT)
+            score.display(screen, FONT)
 
-        snake.update()
+    
 
         # if snake.dead or snake.head.x not in range(0, SW) or snake.head.y not in range(BLOCK_SIZE, SH): 
         #      lives -= 1         # lose a life when the snake hits the edges of the grid
