@@ -13,22 +13,22 @@ class Value:
     def generate_bright_color(self):
         while True:
             color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
+            #print("Generated color:", color)
             if sum(color) / 3 > 150:
                 return color
-
-    def update(self, screen, FONT):
-        text_color = (255, 255, 255)  # Default to white
-        if sum(self.color) / 3 < 128:
-            text_color = (0, 0, 0)  # Use black text on dark background
-
-        value_text = FONT.render(self.value, True, text_color)
-        text_rect = value_text.get_rect(center=self.rect.center)
-        screen.blit(value_text, text_rect.topleft)
-
 
 class Number(Value):
     def __init__(self, number_value):
         super().__init__(str(number_value))
+        
+    def update(self, screen, FONT):
+        text_color = self.color
+        if sum(text_color) / 3 < 128:
+            text_color=(0,0,0)
+
+        value_text = FONT.render(self.value, True, text_color)
+        text_rect = value_text.get_rect(center = self.rect.center)
+        screen.blit(value_text, text_rect.topleft)
 
 
 class Letter(Value):
