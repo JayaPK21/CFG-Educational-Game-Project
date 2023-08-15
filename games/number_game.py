@@ -2,7 +2,7 @@ import pygame
 import sys
 import random
 
-from utils.constants import BLOCK_SIZE
+from utils.constants import BLOCK_SIZE, SW, SH
 from utils.function_utility import draw_grid, is_position_occupied, snake_movements
 from classes.snake import Snake
 from classes.value import Number
@@ -45,19 +45,39 @@ def run_number_game(screen, clock, FONT):
     numbers, possible_values = set_numbers(equation)
 
     run = True
-    while run:
+    paused = False
 
+    lives = 3 # set number of lives
+
+    show_game_over_message = False 
+    game_over_message_timer = 2000 # sets the duration of the game over message on screen
+
+    while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
             if event.type == pygame.KEYDOWN:
-                snake_movements(event, snake)
+                if event.key == pygame.K_SPACE:
+                    paused = not paused
+                else:
+                    snake_movements(event, snake)
+                    
+        if not paused:
+            snake.update()
+            screen.fill("black")
+            draw_grid(screen)
+            equation.display(screen, FONT)
+            score.display(screen, FONT)
 
-        snake.update()
+    
+
+        if snake.lives <= 0:
+            show_game_over_message = True  # show game over message on screen
+
         if snake.dead:
             snake.reset_snake()
             score = Score()
+        
         screen.fill("black")
         draw_grid(screen)
         equation.display(screen, FONT)
@@ -83,11 +103,19 @@ def run_number_game(screen, clock, FONT):
                     possible_values.append(num.value)
                     random_number = random.choice(possible_values)
                     possible_values.remove(random_number)
-                    #numbers.append(Number(random_number))  # Generate a new number
                     numbers.append(get_new_number(random_number, numbers))  # Generate a new number
+                    snake.lives -= 1
+                    print(snake.lives)
+
+        # set format and duration of the game over message
+        if show_game_over_message:
+            screen.fill("black")
+            game_over_text = FONT.render("You're out of lives!", True, "red")
+            game_over_rect = game_over_text.get_rect(center=(SW / 2, SH / 2))
+            screen.blit(game_over_text, game_over_rect.topleft)
 
         pygame.display.update()
-        clock.tick(4)
+        clock.tick(2)
 
         pygame.display.flip()
     

@@ -34,27 +34,41 @@ def start_number_game():
 def draw_buttons():
     for button in buttons:
         button.draw(screen)
+        
+def draw_pause_text():
+    pause_text= FONT.render("Paused", True, "white")
+    text_rect = pause_text.get_rect(center=(SW/2, SH/2))
+    screen.blit(pause_text,text_rect.topleft)
 
 
 def main():
-
+    paused = False
     run = True
+    
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-
+            
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    print("PAUSE")
+                    paused = not paused
+            
+            if not paused:
+                if event.type == pygame.MOUSEBUTTONDOWN:
                 # Loops through the buttons to check which button is being clicked and calls the corresponding call back function
-                for button in buttons:
-                    if button.is_clicked(event.pos):
-                        button.callback()
+                    for button in buttons:
+                        if button.is_clicked(event.pos):
+                            button.callback()
 
         screen.fill("black")
-        draw_buttons()
+        if paused:
+            draw_pause_text()
+        else:
+            draw_buttons()
 
         pygame.display.flip()
+        clock.tick(60)
 
     pygame.quit()
     sys.exit()
