@@ -46,7 +46,7 @@ def run_number_game(screen, clock, FONT):
 
     run = True
 
-    lives = 6 # set number of lives
+    lives = 3 # set number of lives
 
     show_game_over_message = False 
     game_over_message_timer = 2000 # sets the duration of the game over message on screen
@@ -62,19 +62,8 @@ def run_number_game(screen, clock, FONT):
 
         snake.update()
 
-        # if snake.dead or snake.head.x not in range(0, SW) or snake.head.y not in range(BLOCK_SIZE, SH): 
-        #      lives -= 1         # lose a life when the snake hits the edges of the grid
-        #      print(lives)
-        #      if lives <= 0: 
-        #          screen.fill("black") 
-        #          show_game_over_message = True  # show game over message on screen
-        #          game_over_message_start = pygame.time.get_ticks()
-        #          snake.reset_snake()
-
-        if snake.lives < 0:
-            # screen.fill("black") 
+        if snake.lives <= 0:
             show_game_over_message = True  # show game over message on screen
-            #game_over_message_start = pygame.time.get_ticks()
 
         if snake.dead:
             snake.reset_snake()
@@ -105,14 +94,9 @@ def run_number_game(screen, clock, FONT):
                     possible_values.append(num.value)
                     random_number = random.choice(possible_values)
                     possible_values.remove(random_number)
-                    #numbers.append(Number(random_number))  # Generate a new number
                     numbers.append(get_new_number(random_number, numbers))  # Generate a new number
                     snake.lives -= 1
                     print(snake.lives)
-                    # lives -= 1
-                    # print(lives)
-                    # if lives < 0:
-                    #     snake.dead = True
 
         # set format and duration of the game over message
         if show_game_over_message:
@@ -120,11 +104,6 @@ def run_number_game(screen, clock, FONT):
             game_over_text = FONT.render("You're out of lives!", True, "red")
             game_over_rect = game_over_text.get_rect(center=(SW / 2, SH / 2))
             screen.blit(game_over_text, game_over_rect.topleft)
-            #run = False
-            #current_time = pygame.time.get_ticks()
-            # if current_time - game_over_message_start > game_over_message_timer:
-            #     show_game_over_message = False
-            #     run = False
 
         pygame.display.update()
         clock.tick(2)

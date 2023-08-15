@@ -8,7 +8,7 @@ class Snake:
         self.ydir = 0  # Initial movement direction (y-axis)
         self.head = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)  # Snake's head rectangle
         self.body = [pygame.Rect(self.x - BLOCK_SIZE, self.y, BLOCK_SIZE, BLOCK_SIZE)]  # Snake's body segments
-        self.lives = 6
+        self.lives = 3
         self.dead = False  # Flag indicating whether the snake is dead (hit itself or boundaries)
 
     def update(self):
