@@ -4,7 +4,7 @@ from utils.constants import SW, SH
 class Word:
     def __init__(self):
         self.words_list = ["choice", "desk", "resort", "point", "vague", "depart"]
-        self.list_index = random.randint(0, len(self.words_list))
+        self.list_index = random.randint(0, len(self.words_list)-1)
         self.selected_word = self.words_list[self.list_index]
         self.snake_word = ''
 

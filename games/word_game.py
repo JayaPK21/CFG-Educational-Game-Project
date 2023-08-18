@@ -64,11 +64,25 @@ def run_word_game(screen, clock, FONT):
             pygame.draw.rect(screen, "green", square)
         
         for letter in letters:
+
+            # For each letter that is picked by the snake, the corresponding word is displayed at the top of the game.
             if snake.head.x == letter.x and snake.head.y == letter.y:
                 snake.body.append(pygame.Rect(square.x, square.y, BLOCK_SIZE, BLOCK_SIZE))
                 letters.remove(letter)
                 word.update(letter.value)
-                word.display(screen, FONT)
+
+        if len(letters) == 0:
+
+            if word.selected_word == word.snake_word:
+                # Increase score for forming the right word
+                score.increase()
+
+            else:
+                # Total lives has to decrease as the word formed is wrong
+                snake.lives -= 1
+            
+            word = Word()   # Generates a new word
+            letters = set_letters(word)     # Sets the letters for the new word
 
         pygame.display.update()
         clock.tick(4)
