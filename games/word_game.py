@@ -7,6 +7,7 @@ from utils.function_utility import draw_grid, is_position_occupied, snake_moveme
 from classes.snake import Snake
 from classes.value import Letter
 from classes.equation import Equation
+from classes.words import Word
 from classes.score import Score
 
 
@@ -19,17 +20,22 @@ def get_new_letter(character, letters):
     return new_char
 
 
-def set_letters():
-    print("Inside Set Letters")
+def set_letters(word):
+    letters = []
 
+    for character in list(word.selected_word):
+        letters.append(get_new_letter(character, letters))
+    
+    return letters
 
 
 def run_word_game(screen, clock, FONT):
 
     snake = Snake()
-    equation = Equation()
+    word = Word()
     score = Score()
-    # numbers, possible_values = set_numbers(equation)
+
+    letters = set_letters(word)
 
     run = True
     while run:
@@ -47,11 +53,11 @@ def run_word_game(screen, clock, FONT):
             score = Score()
         screen.fill("black")
         draw_grid(screen)
-        # equation.display(screen, FONT)
+        word.display(screen, FONT)
         # score.display(screen, FONT)
 
-        # for num in numbers:
-        #     num.update(screen, FONT)
+        for letter in letters:
+            letter.update(screen, FONT)
 
         pygame.draw.rect(screen, "green", snake.head)
         for square in snake.body:

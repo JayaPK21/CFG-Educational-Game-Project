@@ -16,11 +16,7 @@ class Value:
             #print("Generated color:", color)
             if sum(color) / 3 > 150:
                 return color
-
-class Number(Value):
-    def __init__(self, number_value):
-        super().__init__(str(number_value))
-        
+    
     def update(self, screen, FONT):
         text_color = self.color
         if sum(text_color) / 3 < 128:
@@ -29,6 +25,11 @@ class Number(Value):
         value_text = FONT.render(self.value, True, text_color)
         text_rect = value_text.get_rect(center = self.rect.center)
         screen.blit(value_text, text_rect.topleft)
+
+
+class Number(Value):
+    def __init__(self, number_value):
+        super().__init__(str(number_value))
 
 
 class Letter(Value):
