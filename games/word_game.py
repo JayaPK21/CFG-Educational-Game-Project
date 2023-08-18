@@ -62,6 +62,13 @@ def run_word_game(screen, clock, FONT):
         pygame.draw.rect(screen, "green", snake.head)
         for square in snake.body:
             pygame.draw.rect(screen, "green", square)
+        
+        for letter in letters:
+            if snake.head.x == letter.x and snake.head.y == letter.y:
+                snake.body.append(pygame.Rect(square.x, square.y, BLOCK_SIZE, BLOCK_SIZE))
+                letters.remove(letter)
+                word.update(letter.value)
+                word.display(screen, FONT)
 
         pygame.display.update()
         clock.tick(4)
