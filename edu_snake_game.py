@@ -8,6 +8,7 @@ from classes.button import Button
 from games.number_game import run_number_game
 from games.word_game import run_word_game
 
+
 pygame.init()
 
 FONT = pygame.font.Font(None, BLOCK_SIZE)  # Font for displaying numbers
@@ -35,10 +36,10 @@ def draw_buttons():
     for button in buttons:
         button.draw(screen)
         
-def draw_pause_text():
-    pause_text= FONT.render("Paused", True, "white")
-    text_rect = pause_text.get_rect(center=(SW/2, SH/2))
-    screen.blit(pause_text,text_rect.topleft)
+# def draw_pause_text():
+#     pause_text= FONT.render("Pauseddddddd", True, "white")
+#     text_rect = pause_text.get_rect(center=(SW/2, SH/2))
+#     screen.blit(pause_text,text_rect.topleft)
 
 
 def main():
@@ -50,9 +51,6 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
             
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    print("PAUSE")
-                    paused = not paused
             
             if not paused:
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -60,12 +58,14 @@ def main():
                     for button in buttons:
                         if button.is_clicked(event.pos):
                             button.callback()
+                            
+                            
 
         screen.fill("black")
-        if paused:
-            draw_pause_text()
-        else:
-            draw_buttons()
+        # if paused:
+        #     # draw_pause_text()
+        # else:
+        draw_buttons()
 
         pygame.display.flip()
         clock.tick(60)
