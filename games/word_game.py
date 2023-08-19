@@ -2,7 +2,7 @@ import pygame
 import sys
 import random
 
-from utils.constants import BLOCK_SIZE
+from utils.constants import BLOCK_SIZE, SW, SH
 from utils.function_utility import draw_grid, is_position_occupied, snake_movements
 from classes.snake import Snake
 from classes.value import Letter
@@ -37,6 +37,7 @@ def run_word_game(screen, clock, FONT):
 
     letters = set_letters(word)
 
+    paused = False
     run = True
     while run:
 
@@ -45,13 +46,17 @@ def run_word_game(screen, clock, FONT):
                 run = False
 
             if event.type == pygame.KEYDOWN:
-                snake_movements(event, snake)
+                if event.key == pygame.K_SPACE:
+                    paused = not paused
+                else:
+                    snake_movements(event, snake)
+                    
+        if not paused:
+            snake.update()
 
-        snake.update()
-
-        if snake.dead:
-            snake.reset_snake()
-            score = Score()
+            if snake.dead:
+                snake.reset_snake()
+                score = Score()
 
         screen.fill("black")
         draw_grid(screen)
@@ -96,9 +101,16 @@ def run_word_game(screen, clock, FONT):
             
             letters = set_letters(word)     # Sets the letters for the new word
             snake.reset_snake()     # Reset the snake length and position
+            
+        if paused: 
+            pause_text = FONT.render("Paused", True, "white")
+            text_rect = pause_text.get_rect(center=(SW/2, SH/2))
+            screen.blit(pause_text, text_rect.topleft)
 
         pygame.display.update()
         clock.tick(4)
+        
+    
 
         pygame.display.flip()
     

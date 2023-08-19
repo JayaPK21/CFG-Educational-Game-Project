@@ -113,6 +113,11 @@ def run_number_game(screen, clock, FONT):
             game_over_text = FONT.render("You're out of lives!", True, "red")
             game_over_rect = game_over_text.get_rect(center=(SW / 2, SH / 2))
             screen.blit(game_over_text, game_over_rect.topleft)
+            
+        if paused:
+            pause_text = FONT.render("Paused", True, "white")
+            text_rect = pause_text.get_rect(center=(SW/2, SH/2))
+            screen.blit(pause_text, text_rect.topleft)
 
         pygame.display.update()
         clock.tick(2)
