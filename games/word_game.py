@@ -83,7 +83,17 @@ def run_word_game(screen, clock, FONT):
                 # Total lives has to decrease as the word formed is wrong
                 snake.lives -= 1
             
-            word = Word()   # Generates a new word
+            previous_word = word.selected_word  # Stores the previous word
+            if len(word.words_list) > 1:
+                # Generates a new word after removing the word that has already been played from list
+                word.reset_word(previous_word)
+
+            else:
+                # The word_list has been reset after all the words have been exhausted from the list
+                # The last played word is then removed from the list so that it is not immediately seleced as the next word
+                word = Word()
+                word.words_list.remove(previous_word)
+            
             letters = set_letters(word)     # Sets the letters for the new word
             snake.reset_snake()     # Reset the snake length and position
 
