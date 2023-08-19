@@ -48,13 +48,15 @@ def run_word_game(screen, clock, FONT):
                 snake_movements(event, snake)
 
         snake.update()
+
         if snake.dead:
             snake.reset_snake()
             score = Score()
+
         screen.fill("black")
         draw_grid(screen)
         word.display(screen, FONT)
-        # score.display(screen, FONT)
+        score.display(screen, FONT)
 
         for letter in letters:
             letter.update(screen, FONT)
@@ -83,6 +85,7 @@ def run_word_game(screen, clock, FONT):
             
             word = Word()   # Generates a new word
             letters = set_letters(word)     # Sets the letters for the new word
+            snake.reset_snake()     # Reset the snake length and position
 
         pygame.display.update()
         clock.tick(4)
