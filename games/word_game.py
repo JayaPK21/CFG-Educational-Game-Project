@@ -28,7 +28,6 @@ def set_letters(word):
     
     return letters
 
-
 def run_word_game(screen, clock, FONT):
 
     snake = Snake()
@@ -38,6 +37,7 @@ def run_word_game(screen, clock, FONT):
     letters = set_letters(word)
 
     paused = False
+    
     run = True
     while run:
 
@@ -56,7 +56,6 @@ def run_word_game(screen, clock, FONT):
 
             if snake.dead:
                 snake.reset_snake()
-                score = Score()
 
         screen.fill("black")
         draw_grid(screen)
@@ -86,7 +85,8 @@ def run_word_game(screen, clock, FONT):
 
             else:
                 # Total lives has to decrease as the word formed is wrong
-                snake.lives -= 1
+                if snake.lives > 0:
+                    snake.lives -= 1
             
             previous_word = word.selected_word  # Stores the previous word
             if len(word.words_list) > 1:
@@ -101,7 +101,18 @@ def run_word_game(screen, clock, FONT):
             
             letters = set_letters(word)     # Sets the letters for the new word
             snake.reset_snake()     # Reset the snake length and position
+        
+        # Display the game over window
+        if snake.lives <= 0:
+            screen.fill("black")
+            game_over_text = FONT.render("Game Over", True, "red")
+            game_over_rect = game_over_text.get_rect(center=(SW / 2, SH / 2 - 20))
+            score_text = FONT.render(f"Score: {score.value}", True, "white")
+            score_rect = score_text.get_rect(center=(SW / 2, SH / 2 + 20))
             
+            screen.blit(game_over_text, game_over_rect.topleft)
+            screen.blit(score_text, score_rect.topleft)
+
         if paused: 
             pause_text = FONT.render("Paused", True, "white")
             text_rect = pause_text.get_rect(center=(SW/2, SH/2))
@@ -110,9 +121,6 @@ def run_word_game(screen, clock, FONT):
         pygame.display.update()
         clock.tick(4)
         
-    
-
-        pygame.display.flip()
-    
     pygame.quit()
     sys.exit()
+

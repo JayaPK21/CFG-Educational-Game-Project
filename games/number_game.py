@@ -37,11 +37,10 @@ def set_numbers(equation):
     return numbers, possible_values
 
 
-def run_number_game(screen, clock, FONT):
+def run_number_game(screen, clock, FONT, score):
 
     snake = Snake()
     equation = Equation()
-    score = Score()
     numbers, possible_values = set_numbers(equation)
 
     run = True
@@ -76,7 +75,9 @@ def run_number_game(screen, clock, FONT):
 
         if snake.dead:
             snake.reset_snake()
-            score = Score()
+            # score = Score()
+        
+            
         
         screen.fill("black")
         draw_grid(screen)
@@ -104,15 +105,21 @@ def run_number_game(screen, clock, FONT):
                     random_number = random.choice(possible_values)
                     possible_values.remove(random_number)
                     numbers.append(get_new_number(random_number, numbers))  # Generate a new number
-                    snake.lives -= 1
-                    print(snake.lives)
+                    if snake.lives > 0:
+                        snake.lives -= 1
+                    
 
         # set format and duration of the game over message
         if show_game_over_message:
             screen.fill("black")
-            game_over_text = FONT.render("You're out of lives!", True, "red")
-            game_over_rect = game_over_text.get_rect(center=(SW / 2, SH / 2))
+            game_over_text = FONT.render("Game Over", True, "red")
+            game_over_rect = game_over_text.get_rect(center=(SW / 2, SH / 2 -20))
+            #score text
+            score_text = FONT.render(f"Score: {score.value}", True, "white")
+            score_rect = score_text.get_rect(center =(SW/2, SH/2 + 20))
+            
             screen.blit(game_over_text, game_over_rect.topleft)
+            screen.blit(score_text, score_rect.topleft)
             
         if paused:
             pause_text = FONT.render("Paused", True, "white")
