@@ -13,7 +13,6 @@ class Value:
     def generate_bright_color(self):
         while True:
             color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
-            #print("Generated color:", color)
             if sum(color) / 3 > 150:
                 return color
     

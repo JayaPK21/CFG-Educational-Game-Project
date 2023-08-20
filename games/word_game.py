@@ -39,6 +39,8 @@ def run_word_game(screen, clock, FONT):
     paused = False
     
     run = True
+    
+    
     while run:
 
         for event in pygame.event.get():
