@@ -7,6 +7,7 @@ from classes.button import Button
 
 from games.number_game import run_number_game
 from games.word_game import run_word_game
+from classes.score import Score
 
 
 pygame.init()
@@ -21,26 +22,22 @@ start_button = Button(SW / 6, SH / 4, SW / 3, SH / 8, "Word Game", lambda: start
 start_number_button = Button(SW / 1.75, SH / 4, SW / 3, SH / 8, "Number Game", lambda: start_number_game())
 quit_button = Button(SW / 4, SH / 4 + SH / 4, SW / 2, SH / 8, "Quit", sys.exit)
 buttons = [start_button, start_number_button, quit_button]
-# game_started = False
+
 
 
 def start_word_game():
+    score = Score()
     run_word_game(screen, clock, FONT)
 
 
 def start_number_game():
-    run_number_game(screen, clock, FONT)
+    score = Score()
+    run_number_game(screen, clock, FONT, score)
 
 
 def draw_buttons():
     for button in buttons:
         button.draw(screen)
-        
-# def draw_pause_text():
-#     pause_text= FONT.render("Pauseddddddd", True, "white")
-#     text_rect = pause_text.get_rect(center=(SW/2, SH/2))
-#     screen.blit(pause_text,text_rect.topleft)
-
 
 def main():
     paused = False
@@ -62,9 +59,6 @@ def main():
                             
 
         screen.fill("black")
-        # if paused:
-        #     # draw_pause_text()
-        # else:
         draw_buttons()
 
         pygame.display.flip()
