@@ -17,12 +17,13 @@ class Snake:
             if self.head.x == square.x and self.head.y == square.y:
                 self.dead = True  # Check if snake collided with itself
                 self.lives -= 1
-                print(self.lives)
+        
+            
 
         if self.head.x not in range(0, SW) or self.head.y not in range(BLOCK_SIZE, SH):
             self.dead = True  # Check if snake hit the game boundaries
             self.lives -= 1
-            print(self.lives)
+            
         
         if self.dead:
             return
