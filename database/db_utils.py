@@ -11,10 +11,9 @@ def connect_to_db(db_name):
     )
     return cnx 
 
-<<<<<<< Updated upstream
 
 def get_players_results():
-    db_connection = _connect_to_db()
+    db_connection = connect_to_db()
     cursor = db_connection.cursor()
     query = """select p.Player_name, s.wins, s.losses,s.draws 
     from player p 
@@ -35,7 +34,5 @@ def main():
     get_players_results()  # display players results 
 
 
-=======
->>>>>>> Stashed changes
 if __name__ == '__main__':
     main()
