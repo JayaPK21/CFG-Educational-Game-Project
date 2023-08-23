@@ -36,7 +36,11 @@ def run_word_game(screen, clock, FONT):
 
     run = True
     paused = False
+    is_game_over = False
     
+    user_name = ""
+    user_name_input = False
+
     while run:
 
         for event in pygame.event.get():
@@ -48,6 +52,14 @@ def run_word_game(screen, clock, FONT):
                     paused = not paused
                 else:
                     snake_movements(event, snake)
+                    #If the game over message is being shown and user_name_input is False
+                    if (not user_name_input) and is_game_over:
+                        #if event.key == pygame.K_RETURN:
+                            #Implement feature for writing the result to database.
+                        if event.key == pygame.K_BACKSPACE:
+                            user_name = user_name[:-1]#Remove the last character from the name
+                        else:
+                            user_name += event.unicode #Add the pressed key's character to the name
                     
         if not paused:
             snake.update()
@@ -103,6 +115,13 @@ def run_word_game(screen, clock, FONT):
         
         # Display the game over window
         if snake.lives <= 0:
+            # Stops the snake from moving in any direction.
+            snake.xdir = 0
+            snake.ydir = 0
+
+            # Set game over to True
+            is_game_over = True
+
             screen.fill("black")
             game_over_text = FONT.render("Game Over", True, "red")
             game_over_rect = game_over_text.get_rect(center=(SW / 2, SH / 2 - 20))
@@ -112,7 +131,13 @@ def run_word_game(screen, clock, FONT):
             screen.blit(game_over_text, game_over_rect.topleft)
             screen.blit(score_text, score_rect.topleft)
 
-        if paused: 
+            #If the user has not entered their name yet, display the name input prompt
+            if not user_name_input:
+                user_name_text = FONT.render("Enter your name: " + user_name, True, "white")
+                user_name_rect = user_name_text.get_rect(center=(SW / 2, SH / 3 + 60))
+                screen.blit(user_name_text, user_name_rect.topleft)
+
+        if paused and (not is_game_over): 
             pause_text = FONT.render("Paused", True, "white")
             text_rect = pause_text.get_rect(center=(SW/2, SH/2))
             screen.blit(pause_text, text_rect.topleft)
