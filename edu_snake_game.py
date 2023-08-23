@@ -7,7 +7,6 @@ from classes.button import Button
 
 from games.number_game import run_number_game
 from games.word_game import run_word_game
-from classes.score import Score
 
 
 pygame.init()
@@ -26,13 +25,11 @@ buttons = [start_button, start_number_button, quit_button]
 
 
 def start_word_game():
-    score = Score()
     run_word_game(screen, clock, FONT)
 
 
 def start_number_game():
-    score = Score()
-    run_number_game(screen, clock, FONT, score)
+    run_number_game(screen, clock, FONT)
 
 
 def draw_buttons():

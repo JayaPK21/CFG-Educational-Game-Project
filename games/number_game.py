@@ -35,8 +35,8 @@ def set_numbers(equation):
 
     return numbers, possible_values #Return the list of generated numbers and the updated possible_values
 
-def run_number_game(screen, clock, FONT, score):
-    pygame.init()
+def run_number_game(screen, clock, FONT):
+    score = Score()
     snake = Snake()
     equation = Equation()
     numbers, possible_values = set_numbers(equation)
@@ -44,10 +44,7 @@ def run_number_game(screen, clock, FONT, score):
     run = True
     paused = False
 
-    lives = 3
-
     show_game_over_message = False
-    game_over_message_timer = 2000
 
     user_name = ""
     user_name_input = False
@@ -77,9 +74,15 @@ def run_number_game(screen, clock, FONT, score):
             draw_grid(screen)
             equation.display(screen, FONT)
             score.display(screen, FONT)
-        #heck if the snake's lives have run out, and if so, show the game over message
+
+        #Check if the snake's lives have run out, and if so, show the game over message
         if snake.lives <= 0:
             show_game_over_message = True
+
+            # Stops the snake from moving in any direction.
+            snake.xdir = 0
+            snake.ydir = 0
+
         #Check if the snake has died, and if so, reset its state
         if snake.dead:
             snake.reset_snake()
@@ -122,6 +125,7 @@ def run_number_game(screen, clock, FONT, score):
                     numbers.append(get_new_number(random_number, numbers))
                     if snake.lives > 0:
                         snake.lives -= 1 #Decrease the snake's lives (if lives are remaining)
+                        print(f'lives: {snake.lives}')
 
         if show_game_over_message:
             screen.fill("black")
