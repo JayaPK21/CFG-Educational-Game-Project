@@ -17,17 +17,20 @@ class Snake:
             if self.head.x == square.x and self.head.y == square.y:
                 self.dead = True  # Check if snake collided with itself
                 self.lives -= 1
-        
-            
+                print(f'lives: {self.lives}')
 
         if self.head.x not in range(0, SW) or self.head.y not in range(BLOCK_SIZE, SH):
             self.dead = True  # Check if snake hit the game boundaries
             self.lives -= 1
+            print(f'lives: {self.lives}')
             
-        
         if self.dead:
             return
 
+        # When the snake is not moving in any direction the function is returned.
+        if (self.xdir) == 0 and (self.ydir == 0):
+            return
+        
         # Move the snake's body and head
         self.body.append(self.head)
         for i in range(len(self.body) - 1):

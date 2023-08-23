@@ -1,12 +1,10 @@
 import pygame
 import sys
-import random
 
 from utils.constants import BLOCK_SIZE, SW, SH
 from utils.function_utility import draw_grid, is_position_occupied, snake_movements
 from classes.snake import Snake
 from classes.value import Letter
-from classes.equation import Equation
 from classes.words import Word
 from classes.score import Score
 
@@ -36,10 +34,8 @@ def run_word_game(screen, clock, FONT):
 
     letters = set_letters(word)
 
-    paused = False
-    
     run = True
-    
+    paused = False
     
     while run:
 
@@ -89,6 +85,7 @@ def run_word_game(screen, clock, FONT):
                 # Total lives has to decrease as the word formed is wrong
                 if snake.lives > 0:
                     snake.lives -= 1
+                    print(f'lives: {snake.lives}')
             
             previous_word = word.selected_word  # Stores the previous word
             if len(word.words_list) > 1:
