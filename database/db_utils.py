@@ -15,13 +15,14 @@ def connect_to_db(db_name):
 def get_players_results():
     db_connection = connect_to_db()
     cursor = db_connection.cursor()
-    query = """select p.Player_name, s.wins, s.losses,s.draws 
-    from player p 
-    inner join score s
-    on s.score_id 
-    order by player_id"""
+    query = """ select p.player_name, s.sc_date, s.score
+                from group3a_educational_game_project.p_player p 
+                inner join group3a_educational_game_project.score s
+                on s.score_id
+                order by p.player_name
+                ;"""
     cursor.execute(query)
-    result = cursor.fetchall()  # this is a list with db records where each record is a tuple
+    result = cursor.fetchall()  # Will list db records, record is a tuple
     for i in result:
         print(i)
         cursor.close()
