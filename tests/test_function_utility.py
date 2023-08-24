@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import Mock
 import pygame
 
 from utils.function_utility import snake_movements, is_position_occupied      # Importing function to be tested
