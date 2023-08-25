@@ -5,13 +5,13 @@ from config import USER, PASSWORD, HOST
 
 
 
-def connect_to_db(db_name):
+def connect_to_db(snake_db):
     cnx = mysql.connector.connect(
         host=HOST,
         user=USER,
         password=PASSWORD,
         auth_plugin='mysql_password',
-        database=db_name
+        database=snake_db
     )
     return cnx 
 
