@@ -1,5 +1,7 @@
 import mysql.connector 
 from config import USER, PASSWORD, HOST
+from classes.player import Player
+from classes.score import Score
 
 
 
@@ -126,7 +128,8 @@ def get_players_results():
 
 # This functions excuts all the query above 
 def main():
-    get_players_results()  # display players results 
+    get_players_results()  # display players results
+    Score.update_new_player_to_database() 
 
 if __name__ == '__main__':
     main()

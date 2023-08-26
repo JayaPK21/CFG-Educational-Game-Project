@@ -9,7 +9,7 @@ class Player:
             self.cursor = self.connection.cursor()
 
 
-        def update_score_to_database(self, player_id ):
-             self.cursor.execute(
-              
-              )
+        def existing_player(self, Player):
+            self.cursor.execute(""" SELECT * FROM player
+            WHERE player_name ={} is {}""").format(self.player_name  ) # the player name input need here to compare 
+     
