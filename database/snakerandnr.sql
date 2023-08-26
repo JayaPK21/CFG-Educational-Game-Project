@@ -1,10 +1,9 @@
-USE groupa_educational_game_project;
-
 -- creating the DATABASE group3a_educational_game_project
-CREATE DATABASE group3a_educational_game_project;
-USE groupa_educational_game_project;
+ CREATE DATABASE group3a_educational_game_project;
+ USE groupa_educational_game_project;
 
 -- creating the player table 
+
 CREATE TABLE group3a_educational_game_project.p_player (
   player_id INT NOT NULL,
   player_name VARCHAR(45) NULL,
