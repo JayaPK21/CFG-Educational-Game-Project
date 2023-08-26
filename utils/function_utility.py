@@ -1,10 +1,18 @@
 import pygame
 from utils.constants import BLOCK_SIZE, SW, SH
+from pygame.font import Font
 
-def draw_grid(screen):
+
+def draw_grid(screen, snake):
     # The first row in the grid contains the score and equation
+    # Create a font instance
+    FONT = Font(None, 36)  # You can adjust the font size (36) and style (None)
+
     top_rect = pygame.Rect(0, 0, SW, BLOCK_SIZE)
     pygame.draw.rect(screen, "#328ca8", top_rect)
+    lives_text = FONT.render(f"Lives: {snake.lives}", True, "red")
+    lives_rect = lives_text.get_rect(topleft=(10, 10))
+    screen.blit(lives_text, lives_rect)
 
     for x in range(0, SW, BLOCK_SIZE):
         for y in range(BLOCK_SIZE, SH, BLOCK_SIZE):

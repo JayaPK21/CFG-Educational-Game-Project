@@ -10,6 +10,10 @@ from classes.equation import Equation
 from classes.score import Score
 
 
+def get_snake_life():
+    return Snake.lifes
+    print(Snake.lifes)
+
 # Gets a new number in an unoccupied position
 def get_new_number(num, numbers):
     new_num = Number(num)
@@ -70,10 +74,15 @@ def run_number_game(screen, clock, FONT):
         #Update the game elements and logic if the game is not paused
         if not paused:
             snake.update()
+            lives_text = FONT.render(f"Lives: {snake.lives}", True, "red")
+            lives_rect = lives_text.get_rect(topleft=(10, 10))
+            screen.blit(lives_text, lives_rect)
             screen.fill("black")
-            draw_grid(screen)
+            draw_grid(screen, snake)                                      
             equation.display(screen, FONT)
             score.display(screen, FONT)
+          
+            
 
         #Check if the snake's lives have run out, and if so, show the game over message
         if snake.lives <= 0:
@@ -88,9 +97,11 @@ def run_number_game(screen, clock, FONT):
             snake.reset_snake()
 
         screen.fill("black")
-        draw_grid(screen)
+        draw_grid(screen, snake)
+    
         equation.display(screen, FONT)
         score.display(screen, FONT)
+    
 
         #Update the positions and appearance of each number on the screen
         for num in numbers:
@@ -126,6 +137,7 @@ def run_number_game(screen, clock, FONT):
                     if snake.lives > 0:
                         snake.lives -= 1 #Decrease the snake's lives (if lives are remaining)
                         print(f'lives: {snake.lives}')
+                        
 
         if show_game_over_message:
             screen.fill("black")

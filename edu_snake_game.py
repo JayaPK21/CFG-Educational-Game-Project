@@ -32,6 +32,7 @@ def start_number_game():
     run_number_game(screen, clock, FONT)
 
 
+
 def draw_buttons():
     for button in buttons:
         button.draw(screen)
