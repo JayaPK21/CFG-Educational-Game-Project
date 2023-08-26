@@ -53,12 +53,11 @@ def run_word_game(screen, clock, FONT):
                 else:
                     snake_movements(event, snake)
                     #If the game over message is being shown and user_name_input is False
-                    if not user_name_input:
-                        if (not is_game_over) or (is_game_over and not user_name_input):
+                    if (not user_name_input) and is_game_over:
                         #if event.key == pygame.K_RETURN:
                             #Implement feature for writing the result to database.
-                            if event.key == pygame.K_BACKSPACE:
-                                user_name = user_name[:-1]#Remove the last character from the name
+                        if event.key == pygame.K_BACKSPACE:
+                            user_name = user_name[:-1]#Remove the last character from the name
                         else:
                             user_name += event.unicode #Add the pressed key's character to the name
                     

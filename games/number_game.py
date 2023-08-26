@@ -10,10 +10,6 @@ from classes.equation import Equation
 from classes.score import Score
 
 
-def get_snake_life():
-    return Snake.lifes
-    print(Snake.lifes)
-
 # Gets a new number in an unoccupied position
 def get_new_number(num, numbers):
     new_num = Number(num)
@@ -159,7 +155,7 @@ def run_number_game(screen, clock, FONT):
             user_name_rect = user_name_text.get_rect(center=(SW / 2, SH / 3 + 60))
             screen.blit(user_name_text, user_name_rect.topleft)
 
-        if paused:
+        if paused and (not show_game_over_message):
             pause_text = FONT.render("Paused", True, "white")
             text_rect = pause_text.get_rect(center=(SW / 2, SH / 2))
             screen.blit(pause_text, text_rect.topleft)
