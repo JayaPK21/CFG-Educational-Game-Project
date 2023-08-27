@@ -25,6 +25,8 @@ We are using Python version 3.6.0
 
 * If the snake hits itself or the edges of the screen, the total number of lives decreases by 1.
 * Game is over when the snake loses all 3 lives.
+* Note: the player can then write their name to be added with the score to the database. 
+* Due to time constraints, this was not implemented fully.
 
 ### Word Game
 
@@ -37,6 +39,8 @@ We are using Python version 3.6.0
 * A new word with the corresponding letters are displayed on the screen.
 * If the snake hits itself or the edges of the screen, the total number of lives decreases by 1.
 * Game is over when the snake loses all 3 lives.
+* Note: the player can then write their name to be added with the score to the database. 
+* Due to time constraints, this was not implemented fully.
 
 ## Installation
 

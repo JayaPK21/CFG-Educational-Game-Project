@@ -161,7 +161,7 @@ def run_number_game(screen, clock, FONT):
             screen.blit(pause_text, text_rect.topleft)
 
         pygame.display.update() #Update the display to reflect changes
-        clock.tick(6) #Limit the frame rate to control game speed
+        clock.tick(4) #Limit the frame rate to control game speed
 
         pygame.display.flip() #Update the full display surface
 
