@@ -7,6 +7,8 @@ Our main aim of building this application is to help children 'Learn Through Pla
 
 Pygame library is used for building the gaming application. The user is given an option to play a 'Number Game' or a 'Word Game'. Following are the instructions and descriptions of how each game works.
 
+We are using Python version 3.6.0
+
 ### Number Game
 
 * Initially the game starts with a score of 0 and maximum lives of snake as 3 lives.
