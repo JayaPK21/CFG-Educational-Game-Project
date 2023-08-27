@@ -131,11 +131,11 @@ def run_word_game(screen, clock, FONT):
             screen.blit(game_over_text, game_over_rect.topleft)
             screen.blit(score_text, score_rect.topleft)
 
-            #If the user has not entered their name yet, display the name input prompt
-            if not user_name_input:
-                user_name_text = FONT.render("Enter your name: " + user_name, True, "white")
-                user_name_rect = user_name_text.get_rect(center=(SW / 2, SH / 3 + 60))
-                screen.blit(user_name_text, user_name_rect.topleft)
+            # #If the user has not entered their name yet, display the name input prompt
+            # if not user_name_input:
+            #     user_name_text = FONT.render("Enter your name: " + user_name, True, "white")
+            #     user_name_rect = user_name_text.get_rect(center=(SW / 2, SH / 3 + 60))
+            #     screen.blit(user_name_text, user_name_rect.topleft)
 
         if paused and (not is_game_over): 
             pause_text = FONT.render("Paused", True, "white")
