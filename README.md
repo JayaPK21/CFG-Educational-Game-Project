@@ -42,6 +42,9 @@ We are using Python version 3.6.0
 * Note: the player can then write their name to be added with the score to the database. 
 * Due to time constraints, this was not implemented fully.
 
+Our project log can be found in the following link:
+https://docs.google.com/spreadsheets/d/170giA6m8JIrFzTPDPTbuWaDH4K8cy03QW4fniRXZiCY/edit?usp=sharing
+
 ## Installation
 
 The application can be run by running the python file `edu_snake_game.py` in the main project folder.
